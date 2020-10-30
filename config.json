@@ -1,19 +1,16 @@
 {
-  "name": "Hello World App",
+  "name": "Import from Google Cloud Storage",
   "type": "app",
   "categories": [
-    "development"
+    "import"
   ],
-  "description": "Working demo, use it as a template for your custom apps",
-  "docker_image": "docker.deepsystems.io/supervisely/five/base-py-sdk-internal:apps2",
-  "main_script": "src/my_main_script.py",
+  "description": "read Google Cloud Storage links from CSV file and upload them to Supervisely",
+  "docker_image": "supervisely/base-py-sdk:6",
+  "main_script": "src/import_gcs_links.py",
   "modal_template": "src/modal.html",
-  "modal_template_state": {
-    "length": 5
-  },
   "gui_template": "src/gui.html",
   "task_location": "application_sessions",
   "isolate": true,
-  "icon": "https://img.icons8.com/fluent/96/000000/source-code.png",
+  "icon": "https://i.imgur.com/90izaga.png",
   "icon_background": "#FFFFFF"
 }

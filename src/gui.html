@@ -1,18 +1,13 @@
 <div>
-    <el-row :gutter="20">
-        <el-col :span="12">
-            <sly-card title="Settings" subtitle="some description">
-                <sly-field title="Prefix" description="will be added to the beginning of the generated string">
-                    <el-input v-model="state.prefix"></el-input>
-                </sly-field>
-                <el-button style="margin-top: 10px;" @click="command('generate')"> Generate!</el-button>
-            </sly-card>
-        </el-col>
+    <sly-card title="Step1. Define path to .CSV file"
+              subtitle="Upload CSV file to Files and provide its path (read instructions for more details)"
+              style="margin-bottom: 15px;">
+        <sly-field title="Path to CSV file" description="Copy Path from file context menu and paste it here.
+        Be sure that first line is columns (it is a hard requirement).">
+            <el-input placeholder="Please input CSV path" v-model="state.csvPath"></el-input>
+        </sly-field>
 
-        <el-col :span="12">
-            <sly-card title="Results" subtitle="See results here">
-                <div>Generated string: {{data.randomString}}</div>
-            </sly-card>
-        </el-col>
-    </el-row>
+        <el-button type="text" @click="command('preview_csv')"><i class="zmdi zmdi-refresh"></i> Preview</el-button>
+        <sly-table v-if="data.previewTable.data.length > 0" :content="data.previewTable"> </sly-table>
+    </sly-card>
 </div>
