@@ -8,6 +8,9 @@
         </sly-field>
 
         <el-button type="text" @click="command('preview_csv')"><i class="zmdi zmdi-refresh"></i> Preview</el-button>
-        <sly-table v-if="data.previewTable.data.length > 0" :content="data.previewTable"> </sly-table>
+        <sly-table v-if="data.previewTable.data.length > 0 && data.csvDownloadError.length === 0 "
+                   :content="data.previewTable">
+        </sly-table>
+        <div style="color: red"><pre>{{data.csvDownloadError}}</pre><div>
     </sly-card>
 </div>
