@@ -3,9 +3,12 @@ import csv
 import requests
 import supervisely_lib as sly
 import json
+import pathlib
+from google.cloud import storage
 
 my_app = sly.AppService()
 links_dict = None
+gs_key_local_path = os.path.join(my_app.data_dir, "key.json")
 
 ACTION_IGNORE = "ignore"
 ACTION_ADD_TO_META = "add to image as meta information"
@@ -49,17 +52,35 @@ def preview_csv(api: sly.Api, task_id, context, state, app_logger):
     if downloaded is True:
         sly.fs.silent_remove(local_path)
 
-# @my_app.callback("preview_csv")
-# @sly.timeit
-# def preview_csv(api: sly.Api, task_id, context, state, app_logger):
-#     pass
+
+def download_gcp_image(storage_client, remote_path, local_path):
+    p = pathlib.Path(remote_path)
+    bucket_name = p.parts[2]
+    source_blob_name = os.path.join(*p.parts[3:])
+
+    bucket = storage_client.bucket(bucket_name)
+    blob = bucket.blob(source_blob_name)
+    blob.download_to_filename(local_path)
+
+@my_app.callback("validate_creds")
+@sly.timeit
+def validate_creds(api: sly.Api, task_id, context, state, app_logger):
+    api.file.download(TEAM_ID, state["credsPath"], gs_key_local_path)
+
+    first_url = links_dict[0][state["urlColumn"]]
+    first_url = first_url.replace("gs://", "https://storage.cloud.google.com/")
+    storage_client = storage.Client.from_service_account_json(gs_key_local_path)
+
+    x = 10
+    pass
 
 def main():
     data = {
         "previewTable": {"columns": [], "data": []},
         "csvDownloadError": "",
         "credError": "",
-        "otherColumnsActions": [ACTION_IGNORE, ACTION_ADD_TO_META, ACTION_ADD_TO_TAGS]
+        "otherColumnsActions": [ACTION_IGNORE, ACTION_ADD_TO_META, ACTION_ADD_TO_TAGS],
+        "previewImageUrl": ""
     }
 
     state = {
