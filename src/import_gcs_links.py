@@ -4,6 +4,7 @@ import requests
 import supervisely_lib as sly
 import json
 import pathlib
+import google.api_core.exceptions as google_exceptions
 from google.cloud import storage
 
 my_app = sly.AppService()
@@ -72,13 +73,20 @@ def stop(api: sly.Api, task_id, context, state, app_logger):
 @my_app.callback("validate_creds")
 @sly.timeit
 def validate_creds(api: sly.Api, task_id, context, state, app_logger):
+    api.task.set_field(task_id, "data.credError", "")
+
     api.file.download(TEAM_ID, state["credsPath"], gs_key_local_path)
     first_url = links_dict[0][state["urlColumn"]]
     first_url = first_url.replace("gs://", "https://storage.cloud.google.com/")
     file_name = sly.fs.get_file_name_with_ext(first_url)
     gcs_client = storage.Client.from_service_account_json(gs_key_local_path)
     preview_image_local_path = os.path.join(my_app.data_dir, file_name)
-    download_gcp_image(gcs_client, first_url, preview_image_local_path)
+    try:
+        download_gcp_image(gcs_client, first_url, preview_image_local_path)
+    #except google_exceptions.GoogleAPICallError as e:
+    except Exception as e:
+        api.task.set_field(task_id, "data.credError", str(e))
+        return
 
     remote_path = "/temp/{}/{}".format(task_id, file_name)
     file_info = api.file.upload(TEAM_ID, preview_image_local_path, remote_path)
