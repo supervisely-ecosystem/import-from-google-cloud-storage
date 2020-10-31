@@ -76,7 +76,8 @@ def validate_creds(api: sly.Api, task_id, context, state, app_logger):
     api.task.set_field(task_id, "data.credError", "")
 
     api.file.download(TEAM_ID, state["credsPath"], gs_key_local_path)
-    first_url = links_dict[0][state["urlColumn"]]
+    #first_url = links_dict[0][state["urlColumn"]]
+    first_url = "gs://favorita-to-be-annotated-images/favorita-1002-1003-alimentosmascotas/articulo/17800171243/1828470-IMG_20200217_182325890.jpg"
     first_url = first_url.replace("gs://", "https://storage.cloud.google.com/")
     file_name = sly.fs.get_file_name_with_ext(first_url)
     gcs_client = storage.Client.from_service_account_json(gs_key_local_path)
@@ -113,6 +114,7 @@ def main():
 
     #@TODO: csvPath, credsPath -  set back to empty ""
     # Run application service
+    #@TODO: not found images exist!!!
     my_app.run(data=data, state=state)
 
 
