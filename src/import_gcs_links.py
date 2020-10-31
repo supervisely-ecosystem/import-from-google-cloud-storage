@@ -90,6 +90,7 @@ def validate_creds(api: sly.Api, task_id, context, state, app_logger):
         return
 
     remote_path = "/temp/{}/{}".format(task_id, file_name)
+    #upload-replace api method?
     file_info = api.file.upload(TEAM_ID, preview_image_local_path, remote_path)
 
     sly.fs.silent_remove(preview_image_local_path)
@@ -107,14 +108,15 @@ def main():
 
     state = {
         "csvPath": "/my_folder/links.csv",
-        "credsPath": "/my_folder/abc-b017125670ed.json",
+        #"credsPath": "/my_folder/abc-b017125670ed.json",
+        "credsPath": "/my_folder/nas-60e9c63d45f8.json",
         "urlColumn": "",
         "otherColumnsAction": ACTION_IGNORE
     }
 
     #@TODO: csvPath, credsPath -  set back to empty ""
     # Run application service
-    #@TODO: not found images exist!!!
+    #@TODO: not found images exist!!! handle case
     my_app.run(data=data, state=state)
 
 
