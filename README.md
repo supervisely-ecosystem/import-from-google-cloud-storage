@@ -65,7 +65,14 @@ In `Files` right-mouse click context menu will help you to get the full path to 
 
 <img src="https://i.imgur.com/VuBOyH7.png" height="400"/>
 
+Paster it here
 
+<img src="https://i.imgur.com/b5CUCZH.png"/>
+
+And press `Preview` button. First five rows from you CSV file will pe presented. 
+
+
+<img src="https://i.imgur.com/UIxbL8s.png"/>
 
 ## History of runs
 
