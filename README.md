@@ -88,7 +88,7 @@ Every object in Google Cloud Storage has two types of links to objects (files): 
 
 <img src="https://i.imgur.com/GmWXfki.png"/>
 
-To better understand thes links, let's consider a simple example. If your links starts with `gs://` (for example `gs://a/b/ccc-ddd.jpg`) they can not be directly use download images. So the `gs://` suffix will be replaced to `https://storage.cloud.google.com/` automatically by default. 
+To better understand these links, let's consider simple example. If your links starts with `gs://` (for example `gs://a/b/ccc-ddd.jpg`) they can not be directly use download images. So the `gs://` suffix will be replaced to `https://storage.cloud.google.com/` automatically by default. 
 
 Also sometimes developers forget to add bucket name to the beginning of the link. So you can ask app to change `gs://` suffix to `https://storage.cloud.google.com/<you bucket name here>/`.
 
