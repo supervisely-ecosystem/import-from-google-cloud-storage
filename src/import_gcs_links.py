@@ -205,7 +205,7 @@ def upload(api: sly.Api, task_id, context, state, app_logger):
             # except google_exceptions.GoogleAPICallError as e:
             except Exception as e:
                 app_logger.warn("Link {!r} skipped: {}".format(uri, str(e)))
-                return
+                continue
 
             if state["normalizeExif"] is True or state["removeAlphaChannel"] is True:
                 img = sly.image.read(local_path, remove_alpha_channel=state["removeAlphaChannel"])
