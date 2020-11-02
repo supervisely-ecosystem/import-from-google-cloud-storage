@@ -32,7 +32,7 @@ Application uploads images using links from provided CSV file. In addition, othe
 
 Go to `Apps` page and press `Run` button in fron of the app.
 
-<img src="https://i.imgur.com/qseZSxh.png"/>
+<img src="https://i.imgur.com/2HciaQv.png"/>
 
 
 ## History of runs
