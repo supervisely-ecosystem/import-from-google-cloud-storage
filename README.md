@@ -44,7 +44,8 @@ Go to `Apps` page and press `Run` button in fron of the app.
 Follow [these steps](https://cloud.google.com/docs/authentication/getting-started) to download JSON-file with credentials for Google Cloud Storage. Be sure, that you have permissions to work via API with the data in bucket. If permissions are incorrect, you may see errors like this:
 
 ```
-max-***@***-***.iam.gserviceaccount.com does not have storage.objects.get access to the Google Cloud Storage object.: ('Request failed with status code', 403, ...)
+max-***@***-***.iam.gserviceaccount.com does not have storage.objects.get access 
+to the Google Cloud Storage object.: ('Request failed with status code', 403, ...)
 ```
 
 ## History of runs
