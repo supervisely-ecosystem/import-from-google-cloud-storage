@@ -52,6 +52,8 @@ to the Google Cloud Storage object.: ('Request failed with status code', 403, ..
 
 Upload two files from previous step to the Files in your team. There are no restrictions on file names. Files can be placed to any location in your team.
 
+<img src="https://i.imgur.com/9zrIqY3.png"/>
+
 ## History of runs
 
 To see history of runs go to `Apps` page, click to applications sessions. In front of every session you can see several buttons buttons. Press `View` or `Open` button to open application session (in `Read Only` mode - if the application is stopped or finished).
