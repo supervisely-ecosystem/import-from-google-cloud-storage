@@ -34,6 +34,7 @@ Go to `Apps` page and press `Run` button in fron of the app.
 
 <img src="https://i.imgur.com/2HciaQv.png"/>
 
+## How To Use
 
 ## History of runs
 
