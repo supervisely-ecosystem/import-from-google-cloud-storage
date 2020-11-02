@@ -3,9 +3,11 @@
               subtitle="Upload CSV file to Files. Copy Path from file context menu and paste it here.
         Be sure that first line is columns (it is a hard requirement). Read app's instructions for more details)"
               style="margin-bottom: 15px;">
-        <el-input placeholder="Put CSV path here" v-model="state.csvPath"></el-input>
+        <el-input placeholder="Put CSV path here"
+                  v-model="state.csvPath"
+                  :disabled="data.uploadStarted"></el-input>
 
-        <el-button class="mt15 mb15" type="primary" @click="command('preview_csv')">
+        <el-button class="mt15 mb15" type="primary" @click="command('preview_csv')" :disabled="data.uploadStarted">
             <i class="zmdi zmdi-view-list-alt" style="margin-right: 5px"></i> Preview
         </el-button>
         <sly-table v-if="data.previewTable.data.length > 0 && data.csvDownloadError.length === 0 "
@@ -20,14 +22,14 @@
               style="margin-bottom: 15px;">
         <div class="fflex">
             <div style="width: 100px">URL column:</div>
-            <el-select v-model="state.urlColumn" placeholder="Select">
+            <el-select v-model="state.urlColumn" placeholder="Select" :disabled="data.uploadStarted">
                 <el-option v-for="item in data.previewTable.columns" :key="item" :label="item" :value="item">
                 </el-option>
             </el-select>
         </div>
         <div class="fflex mt15">
             <div style="width: 100px">Other columns:</div>
-            <el-select v-model="state.otherColumnsAction" placeholder="Select">
+            <el-select v-model="state.otherColumnsAction" placeholder="Select" :disabled="data.uploadStarted">
                 <el-option v-for="item in data.otherColumnsActions" :key="item" :label="item" :value="item">
                 </el-option>
             </el-select>
@@ -37,16 +39,16 @@
 
     <sly-card title="Step 3. Authenticated URL"
               subtitle="Transform local URI to the downloadable URL by replacing suffix" style="margin-bottom: 15px;">
-        <el-checkbox v-model="state.transformUri">Apply this transformation</el-checkbox>
+        <el-checkbox v-model="state.transformUri" :disabled="data.uploadStarted">Apply this transformation</el-checkbox>
         <div class="fflex mt15">
             <div style="width: 70px">Before:</div>
-            <el-input v-model="state.suffixBefore" :disabled="!state.transformUri"></el-input>
+            <el-input v-model="state.suffixBefore" :disabled="!state.transformUri || data.uploadStarted"></el-input>
         </div>
         <div class="fflex mt15">
             <div style="width: 70px">After:</div>
-            <el-input v-model="state.suffixAfter" :disabled="!state.transformUri"></el-input>
+            <el-input v-model="state.suffixAfter" :disabled="!state.transformUri || data.uploadStarted"></el-input>
         </div>
-        <el-button class="mt15 mb15" type="primary" @click="command('transform_uri');">
+        <el-button class="mt15 mb15" type="primary" @click="command('transform_uri');" :disabled="data.uploadStarted">
             <i class="zmdi zmdi-repeat" style="margin-right: 5px"></i> Transform and preview
         </el-button>
         <sly-table v-if="data.transformedTable.data.length > 0 && data.csvDownloadError.length === 0 "
@@ -56,8 +58,8 @@
 
     <sly-card title="Step 4. Google Cloud Platform credentials"
               subtitle="put path to credentials file" style="margin-bottom: 15px;">
-        <el-input v-model="state.credsPath"></el-input>
-        <el-button class="mt15 mb15" type="primary" @click="command('validate_creds');">
+        <el-input v-model="state.credsPath" :disabled="data.uploadStarted"></el-input>
+        <el-button class="mt15 mb15" type="primary" @click="command('validate_creds');" :disabled="data.uploadStarted">
             <i class="zmdi zmdi-refresh" style="margin-right: 5px"></i> Validate credentials on random URL
         </el-button>
         <div>
@@ -72,24 +74,38 @@
               single dataset. If destination doesn't exist, it will be created. Otherwise, all links will be added
               to the existing destination.">
         <div class="fflex">
-            <div style="width: 100px">Workspace: </div><el-input v-model="state.workspaceName"></el-input>
+            <div style="width: 100px">Workspace:</div>
+            <el-input v-model="state.workspaceName" :disabled="data.uploadStarted"></el-input>
         </div>
         <div class="fflex mt15">
-            <div style="width: 100px">Project: </div><el-input v-model="state.projectName"></el-input>
+            <div style="width: 100px">Project:</div>
+            <el-input v-model="state.projectName" :disabled="data.uploadStarted"></el-input>
         </div>
         <div class="fflex  mt15">
-            <div style="width: 100px">Dataset: </div><el-input v-model="state.datasetName"></el-input>
+            <div style="width: 100px">Dataset:</div>
+            <el-input v-model="state.datasetName" :disabled="data.uploadStarted"></el-input>
         </div>
         <sly-field title="Upload settings" description="how to preprocess image before upload"
                    style="margin-top: 20px">
-            <div><el-checkbox v-model="state.normalizeExif">Normalize EXIF</el-checkbox></div>
-            <div class="mt10"><el-checkbox v-model="state.removeAlphaChannel">Remove alpha channel</el-checkbox></div>
-            <el-checkbox v-model="state.skipImage">Skip image if already exists (existance is checked by name)</el-checkbox>
+            <div>
+                <el-checkbox v-model="state.normalizeExif" :disabled="data.uploadStarted"> Normalize EXIF
+                </el-checkbox>
+            </div>
+            <div class="mt10">
+                <el-checkbox v-model="state.removeAlphaChannel" :disabled="data.uploadStarted">Remove alpha channel
+                </el-checkbox>
+            </div>
+            <el-checkbox class="mt10" v-model="state.skipImage" :disabled="data.uploadStarted">Skip image if already
+                exists in dataset (existance is checked by name)
+            </el-checkbox>
         </sly-field>
-        <el-button class="mt15 mb15" type="primary" @click="command('upload');">
+        <el-button class="mt15 mb15" type="primary" @click="command('upload');" :disabled="data.uploadStarted">
             <i class="zmdi zmdi-play" style="margin-right: 5px"></i> Start upload
         </el-button>
-<!--        <el-progress :percentage="0"></el-progress>-->
+        <div class="mt15" v-if="data.uploadStarted">
+            <div>Uploaded: {{data.uploadedCount}} / {{data.totalCount}}</div>
+            <el-progress :percentage="data.uploadProgress"></el-progress>
+        </div>
         <div style="color: red" v-if="data.uploadError.length > 0">{{data.uploadError}}</div>
     </sly-card>
 </div>

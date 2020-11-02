@@ -128,7 +128,9 @@ def validate_creds(api: sly.Api, task_id, context, state, app_logger):
 @my_app.callback("upload")
 @sly.timeit
 def upload(api: sly.Api, task_id, context, state, app_logger):
-    api.task.set_field(task_id, "data.uploadError", "")
+    fields = [{"field": "data.uploadError", "payload": ""},
+              {"field": "data.uploadStarted", "payload": True}]
+    api.app.set_fields(task_id, fields)
 
     workspace_name = state["workspaceName"]
     if not workspace_name:
@@ -161,42 +163,58 @@ def upload(api: sly.Api, task_id, context, state, app_logger):
         api.task.set_field(task_id, "data.uploadError", "Error: Validate creds step is skipped")
         return
 
-    for link in links:
-        uri = link[state["urlColumn"]]
+    existing_names = api.image.get_list(dataset.id)
+    existing_names = set([info.name for info in existing_names])
+    _total_count = len(links)
+    _uploaded_count = 0
+    for batch in sly.batched(links, batch_size=15):
+        batch_local_paths = []
+        batch_names = []
+        for link in batch:
+            uri = link[state["urlColumn"]]
+            res_url = _transform(uri, state)
+            file_name = sly.fs.get_file_name_with_ext(res_url)
+            ext = sly.fs.get_file_ext(file_name)
+            if not ext:
+                file_name += sly.image.DEFAULT_IMG_EXT
 
-        res_url = _transform(uri, state)
-        file_name = sly.fs.get_file_name_with_ext(res_url)
+            #image_info = api.image.get_info_by_name(dataset.id, file_name)
+            need_upload = True
+            upload_name = file_name
+            if file_name in existing_names:
+                if state["skipImage"] is True:
+                    need_upload = False
+                    continue
+                else:
+                    #upload_name = api.image.get_free_name(dataset.id, file_name)
+                    upload_name = sly._utils.generate_free_name(existing_names, file_name, with_ext=True)
 
-        ext = sly.fs.get_file_ext(file_name)
-        if not ext:
-            file_name += sly.image.DEFAULT_IMG_EXT
+            local_path = os.path.join(my_app.data_dir, file_name)
+            try:
+                download_gcp_image(gcs_client, res_url, local_path)
+                batch_local_paths.append(local_path)
+                batch_names.append(upload_name)
+            # except google_exceptions.GoogleAPICallError as e:
+            except Exception as e:
+                app_logger.warn("Link {!r} skipped: {}".format(uri, str(e)))
+                return
 
-        image_info = api.image.get_info_by_name(dataset.id, file_name)
-        need_upload = True
-        upload_name = file_name
-        if image_info is not None:
-            if state["skipImage"] is True:
-                need_upload = False
-            else:
-                upload_name = api.image.get_free_name(dataset.id, file_name)
+            if state["normalizeExif"] is True or state["removeAlphaChannel"] is True:
+                img = sly.image.read(local_path, remove_alpha_channel=state["removeAlphaChannel"])
+                sly.image.write(local_path, img, remove_alpha_channel=state["removeAlphaChannel"])
 
 
-        local_path = os.path.join(my_app.data_dir, file_name)
-        try:
-            download_gcp_image(gcs_client, res_url, local_path)
-        # except google_exceptions.GoogleAPICallError as e:
-        except Exception as e:
-            app_logger.warn("Lisk {!r} skipped: {}".format(uri, str(e)))
-            return
+        api.image.upload_paths(dataset.id, batch_names, batch_local_paths)
+        for local_path in batch_local_paths:
+            sly.fs.silent_remove(local_path)
 
-        if state["normalizeExif"] is True or state["removeAlphaChannel"] is True:
-            img = sly.image.read(local_path, remove_alpha_channel=state["removeAlphaChannel"])
-            sly.image.write(local_path, img, remove_alpha_channel=state["removeAlphaChannel"])
+        _uploaded_count += len(batch)
 
-        if need_upload is True:
-            api.image.upload_path(dataset.id, upload_name, local_path, meta={})
-            
-        sly.fs.silent_remove(local_path)
+        fields = [{"field": "data.uploadedCount", "payload": _uploaded_count},
+                  {"field": "data.totalCount", "payload": _total_count},
+                  {"field": "data.uploadProgress", "payload": int(_uploaded_count * 100 / _total_count)}]
+        api.app.set_fields(task_id, fields)
+
 
 
 def main():
@@ -209,6 +227,10 @@ def main():
         "finished": False,
         "transformedTable": {"columns": [], "data": []},
         "uploadError": "",
+        "uploadedCount": 0,
+        "totalCount": 0,
+        "uploadProgress": 0,
+        "uploadStarted": False
     }
 
     state = {
@@ -236,6 +258,10 @@ def main():
     #@TODO: normalize exif, remove alpha channel
     #@TODO: add upload by link option
     #@TODO: csv columns as meta or tags
+    #@TODO: describe tasks destination in readme
+    #@TODO: почему появился скрол внутри последней карточки?
+    #@TODO: расписать кейс дозагрузки
+
     # Run application service
     my_app.run(data=data, state=state)
 
