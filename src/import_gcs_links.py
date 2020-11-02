@@ -16,7 +16,7 @@ gcs_client = None
 
 ACTION_IGNORE = "ignore"
 ACTION_ADD_TO_META = "add to image as meta information"
-ACTION_ADD_TO_TAGS = "add to image as tags"
+#ACTION_ADD_TO_TAGS = "add to image as tags"
 
 TEAM_ID = int(os.environ['context.teamId'])
 
@@ -170,6 +170,7 @@ def upload(api: sly.Api, task_id, context, state, app_logger):
     for batch in sly.batched(links, batch_size=15):
         batch_local_paths = []
         batch_names = []
+        batch_metas = []
         for link in batch:
             uri = link[state["urlColumn"]]
             res_url = _transform(uri, state)
@@ -194,6 +195,13 @@ def upload(api: sly.Api, task_id, context, state, app_logger):
                 download_gcp_image(gcs_client, res_url, local_path)
                 batch_local_paths.append(local_path)
                 batch_names.append(upload_name)
+
+                if state["otherColumnsAction"] == ACTION_ADD_TO_META:
+                    link_meta = link.copy()
+                    link_meta.pop(state["urlColumn"], None)
+                    batch_metas.append(link_meta)
+                else:
+                    batch_metas.append({})
             # except google_exceptions.GoogleAPICallError as e:
             except Exception as e:
                 app_logger.warn("Link {!r} skipped: {}".format(uri, str(e)))
@@ -204,7 +212,7 @@ def upload(api: sly.Api, task_id, context, state, app_logger):
                 sly.image.write(local_path, img, remove_alpha_channel=state["removeAlphaChannel"])
 
 
-        api.image.upload_paths(dataset.id, batch_names, batch_local_paths)
+        api.image.upload_paths(dataset.id, batch_names, batch_local_paths, metas=batch_metas)
         for local_path in batch_local_paths:
             sly.fs.silent_remove(local_path)
 
@@ -222,7 +230,7 @@ def main():
         "previewTable": {"columns": [], "data": []},
         "csvDownloadError": "",
         "credError": "",
-        "otherColumnsActions": [ACTION_IGNORE, ACTION_ADD_TO_META, ACTION_ADD_TO_TAGS],
+        "otherColumnsActions": [ACTION_IGNORE, ACTION_ADD_TO_META],#, ACTION_ADD_TO_TAGS],
         "previewImageUrl": "",
         "finished": False,
         "transformedTable": {"columns": [], "data": []},
@@ -240,10 +248,10 @@ def main():
         "otherColumnsAction": ACTION_IGNORE,
         "transformUri": True,
         "suffixBefore": "gs://",
-        "suffixAfter": "https://storage.cloud.google.com/favorita-to-be-annotated-images/", #"https://storage.cloud.google.com/",
-        "workspaceName": "delme", #"",
-        "projectName": "delme", #"",
-        "datasetName": "delme", #"",
+        "suffixAfter": "https://storage.cloud.google.com/",
+        "workspaceName": "",
+        "projectName": "",
+        "datasetName": "",
         "normalizeExif": True,
         "removeAlphaChannel": True,
         "skipImage": True
@@ -257,9 +265,7 @@ def main():
     #@TODO: readme error description: does not have storage.objects.get access to the Google Cloud Storage object.: ('Request failed with status code', 403, 'Expected one of', <HTTPStatus.OK: 200>, <HTTPStatus.PARTIAL_CONTENT: 206>)
     #@TODO: normalize exif, remove alpha channel
     #@TODO: add upload by link option
-    #@TODO: csv columns as meta or tags
-    #@TODO: describe tasks destination in readme
-    #@TODO: почему появился скрол внутри последней карточки?
+    #@TODO: describe tasks destination in readme (что потом можно вохвращаться к сессиям и смотреть)
     #@TODO: расписать кейс дозагрузки
 
     # Run application service
