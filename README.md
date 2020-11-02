@@ -1,6 +1,6 @@
 <div align="center" markdown>
 
-<img src="https://i.imgur.com/e9mGfor.png"/>
+<img src="https://i.imgur.com/MwQqR5r.png"/>
 
 # Import from Google Cloud Storage
 
