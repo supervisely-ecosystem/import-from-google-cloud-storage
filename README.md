@@ -8,6 +8,7 @@
 
   <a href="#Overview">Overview</a> •
   <a href="#How-To-Run">How To Run</a> •
+  <a href="#Preparations">Preparations</a> •
   <a href="#How-To-Use">How To Use</a> •
   <a href="#History-Of-Runs">History of runs</a>
 </p>
@@ -34,7 +35,7 @@ Go to `Apps` page and press `Run` button in fron of the app.
 
 <img src="https://i.imgur.com/2HciaQv.png"/>
 
-## How To Use
+## Preparations
 
 ### Step 0. Prepare CSV file with links
 ⚠️ **Important**: Column names have to be presented in the file. It is a hard requirement.  
@@ -53,6 +54,8 @@ to the Google Cloud Storage object.: ('Request failed with status code', 403, ..
 Upload two files from previous step to the Files in your team. There are no restrictions on file names. Files can be placed to any location in your team.
 
 <img src="https://i.imgur.com/9zrIqY3.png"/>
+
+## How To Use
 
 ## History of runs
 
