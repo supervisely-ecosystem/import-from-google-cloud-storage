@@ -69,10 +69,11 @@ Paster it here
 
 <img src="https://i.imgur.com/b5CUCZH.png"/>
 
-And press `Preview` button. First five rows from you CSV file will pe presented. 
-
+And press `Preview` button. First five rows from your CSV file will pe presented. 
 
 <img src="https://i.imgur.com/UIxbL8s.png"/>
+
+### Step 2. Set Up CSV columns
 
 ## History of runs
 
