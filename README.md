@@ -53,7 +53,7 @@ to the Google Cloud Storage object.: ('Request failed with status code', 403, ..
 
 Upload two files from previous step to the Files in your team. There are no restrictions on file names. Files can be placed to any location in your team.
 
-<img src="https://i.imgur.com/9zrIqY3.png"/>
+<img src="https://i.imgur.com/XNCEIJj.png"/>
 
 ## How To Use
 
