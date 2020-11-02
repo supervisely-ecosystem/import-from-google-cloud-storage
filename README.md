@@ -75,6 +75,16 @@ And press `Preview` button. First five rows from your CSV file will pe presented
 
 ### Step 2. Set Up CSV columns
 
+<img src="https://i.imgur.com/MDciSf1.png"/>
+
+Define, what column stores URL and the action that is applied to other columns:
+- `ignore` - other columns are ignored
+- `add to image as meta information` - other columns will be added to the image as metainformation. User can view this information in labeling interface under the tab `Data` in images list.
+
+
+
+
+
 ## History of runs
 
 To see history of runs go to `Apps` page, click to applications sessions. In front of every session you can see several buttons buttons. Press `View` or `Open` button to open application session (in `Read Only` mode - if the application is stopped or finished).
