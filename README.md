@@ -27,9 +27,9 @@ Application uploads images using links from provided CSV file. In addition, othe
 
 ## How To Run
 
-### Step 0. Add app from ecosystem
+### Step 1. Add app from ecosystem
 
-### Step 1: Run from context menu of project
+### Step 2: Run from context menu of project
 
 Go to `Apps` page and press `Run` button in fron of the app.
 
@@ -37,10 +37,10 @@ Go to `Apps` page and press `Run` button in fron of the app.
 
 ## Preparations
 
-### Step 0. Prepare CSV file with links
+### Step 1. Prepare CSV file with links
 ⚠️ **Important**: Column names have to be presented in the file. It is a hard requirement.  
 
-### Step 1. Prepare JSON credentials file
+### Step 2. Prepare JSON credentials file
 
 Follow [these steps](https://cloud.google.com/docs/authentication/getting-started) to download JSON-file with credentials for Google Cloud Storage. Be sure, that you have permissions to work via API with the data in bucket. If permissions are incorrect, you may see errors like this:
 
@@ -49,13 +49,23 @@ max-***@***-***.iam.gserviceaccount.com does not have storage.objects.get access
 to the Google Cloud Storage object.: ('Request failed with status code', 403, ...)
 ```
 
-### Step 2. Upload CSV and JSON files to your team
+### Step 3. Upload CSV and JSON files to your team
 
 Upload two files from previous step to the Files in your team. There are no restrictions on file names. Files can be placed to any location in your team.
 
 <img src="https://i.imgur.com/9zrIqY3.png"/>
 
 ## How To Use
+
+Application has 5 cards. User has to go through all these cards (steps). Let's loot at every step.
+
+### Step 1. Provide path to CSV file
+
+In `Files` right-mouse click context menu will help you to get the full path to file and copy it to buffer. 
+
+<img src="https://i.imgur.com/VuBOyH7.png" height="400"/>
+
+
 
 ## History of runs
 
