@@ -3,9 +3,11 @@
               subtitle="Upload CSV file to Files. Copy Path from file context menu and paste it here.
         Be sure that first line is columns (it is a hard requirement). Read app's instructions for more details)"
               style="margin-bottom: 15px;">
-        <el-input placeholder="Please input CSV path" v-model="state.csvPath"></el-input>
+        <el-input placeholder="Put CSV path here" v-model="state.csvPath"></el-input>
 
-        <el-button type="text" @click="command('preview_csv')"><i class="zmdi zmdi-refresh"></i> Preview</el-button>
+        <el-button class="mt15 mb15" type="primary" @click="command('preview_csv')">
+            <i class="zmdi zmdi-view-list-alt" style="margin-right: 5px"></i> Preview
+        </el-button>
         <sly-table v-if="data.previewTable.data.length > 0 && data.csvDownloadError.length === 0 "
                    :content="data.previewTable">
         </sly-table>
@@ -44,8 +46,8 @@
             <div style="width: 70px">After:</div>
             <el-input v-model="state.suffixAfter" :disabled="!state.transformUri"></el-input>
         </div>
-        <el-button type="text" @click="command('transform_uri');">
-            <i class="zmdi zmdi-refresh"></i> Transform and preview
+        <el-button class="mt15 mb15" type="primary" @click="command('transform_uri');">
+            <i class="zmdi zmdi-repeat" style="margin-right: 5px"></i> Transform and preview
         </el-button>
         <sly-table v-if="data.transformedTable.data.length > 0 && data.csvDownloadError.length === 0 "
                    :content="data.transformedTable">
@@ -54,14 +56,40 @@
 
     <sly-card title="Step 4. Google Cloud Platform credentials"
               subtitle="put path to credentials file" style="margin-bottom: 15px;">
-        <el-input placeholder="path" v-model="state.credsPath"></el-input>
-        <el-button type="text" @click="command('validate_creds');">
-            <i class="zmdi zmdi-refresh"></i> Validate credentials on random URL
+        <el-input v-model="state.credsPath"></el-input>
+        <el-button class="mt15 mb15" type="primary" @click="command('validate_creds');">
+            <i class="zmdi zmdi-refresh" style="margin-right: 5px"></i> Validate credentials on random URL
         </el-button>
         <div>
             <img v-if="data.previewImageUrl && data.credError.length === 0"
                  :src="data.previewImageUrl" style="max-height: 500px;">
         </div>
         <div style="color: red" v-if="data.credError.length > 0">{{data.credError}}</div>
+    </sly-card>
+
+    <sly-card class="mt15" title="Step 5. Set up destination and start upload"
+              subtitle="Define destination: workspace/project/dataset. All links from CSV file will be placed to a
+              single dataset. If destination doesn't exist, it will be created. Otherwise, all links will be added
+              to the existing destination.">
+        <div class="fflex">
+            <div style="width: 100px">Workspace: </div><el-input v-model="state.workspaceName"></el-input>
+        </div>
+        <div class="fflex mt15">
+            <div style="width: 100px">Project: </div><el-input v-model="state.projectName"></el-input>
+        </div>
+        <div class="fflex  mt15">
+            <div style="width: 100px">Dataset: </div><el-input v-model="state.datasetName"></el-input>
+        </div>
+        <sly-field title="Upload settings" description="how to preprocess image before upload"
+                   style="margin-top: 20px">
+            <div><el-checkbox v-model="state.normalizeExif">Normalize EXIF</el-checkbox></div>
+            <div class="mt10"><el-checkbox v-model="state.removeAlphaChannel">Remove alpha channel</el-checkbox></div>
+            <el-checkbox v-model="state.skipImage">Skip image if already exists (existance is checked by name)</el-checkbox>
+        </sly-field>
+        <el-button class="mt15 mb15" type="primary" @click="command('upload');">
+            <i class="zmdi zmdi-play" style="margin-right: 5px"></i> Start upload
+        </el-button>
+<!--        <el-progress :percentage="0"></el-progress>-->
+        <div style="color: red" v-if="data.uploadError.length > 0">{{data.uploadError}}</div>
     </sly-card>
 </div>
