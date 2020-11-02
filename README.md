@@ -57,7 +57,7 @@ Upload two files from previous step to the Files in your team. There are no rest
 
 ## How To Use
 
-Application has 5 cards. User has to go through all these cards (steps). Let's loot at every step.
+Application has 5 cards. User has to go through all these cards (steps). Let's take a look at every step.
 
 ### Step 1. Provide path to CSV file
 
