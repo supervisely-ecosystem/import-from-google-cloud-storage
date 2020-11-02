@@ -242,8 +242,8 @@ def main():
     }
 
     state = {
-        "csvPath": "/my_folder/links.csv",
-        "credsPath": "/my_folder/nas-60e9c63d45f8.json",
+        "csvPath": "",
+        "credsPath": "",
         "urlColumn": "",
         "otherColumnsAction": ACTION_IGNORE,
         "transformUri": True,
@@ -257,17 +257,7 @@ def main():
         "skipImage": True
     }
 
-    #@TODO: csvPath, credsPath -  set back to empty ""
-    #@TODO: not found images exist!!! handle case
-    # @TODO api.file upload-replace api method?
-    # @TODO:  doc about bucket name in replace suffix
-    # LOW @TODO: add fields config to speedup multiple runs with save arguments
-    #@TODO: readme error description: does not have storage.objects.get access to the Google Cloud Storage object.: ('Request failed with status code', 403, 'Expected one of', <HTTPStatus.OK: 200>, <HTTPStatus.PARTIAL_CONTENT: 206>)
-    #@TODO: normalize exif, remove alpha channel
-    #@TODO: add upload by link option
-    #@TODO: describe tasks destination in readme (что потом можно вохвращаться к сессиям и смотреть)
-    #@TODO: расписать кейс дозагрузки
-
+    # @TODO: add upload by link option
     # Run application service
     my_app.run(data=data, state=state)
 
