@@ -2,7 +2,7 @@
 
 <img src="https://i.imgur.com/MwQqR5r.png"/>
 
-# Import from Google Cloud Storage
+# Import images from Google Cloud Storage
 
 <p align="center">
 
@@ -37,12 +37,10 @@ Go to `Apps` page and press `Run` button in fron of the app.
 
 ## History of runs
 
-To see history of runs go to `Apps` page, click to applications sessions. In front of every session you can see buttons (`View` and `Logs`). Press `View` button to open stopped application session in `Read Only` mode.
+To see history of runs go to `Apps` page, click to applications sessions. In front of every session you can see several buttons buttons. Press `View` or `Open` button to open application session (in `Read Only` mode - if the application is stopped or finished).
 
-<img src="https://i.imgur.com/G1CUssB.png"/>
+<img src="https://i.imgur.com/WwdUXe4.png"/>
 
-
-Import images from Google Cloud Storage
 
     # @TODO:  doc about bucket name in replace suffix
     #@TODO: readme error description: does not have storage.objects.get access to the Google Cloud Storage object.: ('Request failed with status code', 403, 'Expected one of', <HTTPStatus.OK: 200>, <HTTPStatus.PARTIAL_CONTENT: 206>)
