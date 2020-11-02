@@ -36,12 +36,16 @@ Go to `Apps` page and press `Run` button in fron of the app.
 
 ## How To Use
 
-### Step 0. Prepare CSV file
+### Step 0. Prepare CSV file with links
 **Important** Column names have to be presented in the file. It is a hard requirement.  
 
 ### Step 1. Prepare JSON credentials file
 
 Follow [these steps](https://cloud.google.com/docs/authentication/getting-started) to download JSON-file with credentials for Google Cloud Storage. Be sure, that you have permissions to work via API with the data in bucket. If permissions are incorrect, you may see errors like this:
+
+### Step 2. Upload CSV and JSON files to your team
+
+Upload two files from previous step to the Files in your team. Files can be placed to any location in your team.
 
 ```
 max-***@***-***.iam.gserviceaccount.com does not have storage.objects.get access 
