@@ -22,7 +22,7 @@
 
 ## Overview
 
-# import-from-google-cloud-storage
+Application uploads images using links from provided CSV file. In addition, other columns can be attached to image as metainformation.
 
 
 
