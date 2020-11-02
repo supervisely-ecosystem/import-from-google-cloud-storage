@@ -24,6 +24,22 @@
 
 Application uploads images using links from provided CSV file. In addition, other columns can be attached to images as metainformation. 
 
+## How To Run
+
+### Step 0. Add app from ecosystem
+
+### Step 1: Run from context menu of project
+
+Go to `Apps` page and press `Run` button in fron of the app.
+
+<img src="https://i.imgur.com/qseZSxh.png"/>
+
+
+## History of runs
+
+To see history of runs go to `Apps` page, click to applications sessions. In front of every session you can see buttons (`View` and `Logs`). Press `View` button to open stopped application session in `Read Only` mode.
+
+<img src="https://i.imgur.com/G1CUssB.png"/>
 
 
 Import images from Google Cloud Storage
