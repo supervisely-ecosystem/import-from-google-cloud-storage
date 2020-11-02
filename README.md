@@ -79,10 +79,16 @@ And press `Preview` button. First five rows from your CSV file will pe presented
 
 Define, what column stores URL and the action that is applied to other columns:
 - `ignore` - other columns are ignored
-- `add to image as meta information` - other columns will be added to the image as metainformation. User can view this information in labeling interface under the tab `Data` in images list.
+- `add to image as meta information` - other columns will be added to image as metainformation. User can view this information in labeling interface under the tab `Data` in images list.
 
 
+### Step 3. URL modification
 
+Every object in Google Cloud Storage has two types of links to objects (files): URI and URL.  
+
+<img src="https://i.imgur.com/GmWXfki.png"/>
+
+To better understand thes links, let's consider a simple example
 
 
 ## History of runs
