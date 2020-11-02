@@ -1,7 +1,7 @@
 <div>
     <sly-card title="Step 1. Define path to .CSV file"
               subtitle="Upload CSV file to Files. Copy Path from file context menu and paste it here.
-        Be sure that first line is columns (it is a hard requirement). Read app's instructions for more details)"
+        Be sure that first line is columns (it is a hard requirement). Read app's instructions for more details"
               style="margin-bottom: 15px;">
         <el-input placeholder="Put CSV path here"
                   v-model="state.csvPath"
@@ -57,7 +57,7 @@
     </sly-card>
 
     <sly-card title="Step 4. Google Cloud Platform credentials"
-              subtitle="put path to credentials file" style="margin-bottom: 15px;">
+              subtitle="Put path to credentials file. Read app's instructions for more details" style="margin-bottom: 15px;">
         <el-input v-model="state.credsPath" :disabled="data.uploadStarted"></el-input>
         <el-button class="mt15 mb15" type="primary" @click="command('validate_creds');" :disabled="data.uploadStarted">
             <i class="zmdi zmdi-refresh" style="margin-right: 5px"></i> Validate credentials on random URL
