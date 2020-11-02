@@ -82,7 +82,7 @@ Define, what column stores URL and the action that is applied to other columns:
 - `add to image as meta information` - other columns will be added to image as metainformation. User can view this information in labeling interface under the tab `Data` in images list.
 
 
-### Step 3. URL modification
+### Step 3. URL modification (optional)
 
 Every object in Google Cloud Storage has two types of links to objects (files): URI and URL.  
 
@@ -93,6 +93,12 @@ To better understand these links, let's consider simple example. If your links s
 Also sometimes developers forget to add bucket name to the beginning of the link. So you can ask app to change `gs://` suffix to `https://storage.cloud.google.com/<you bucket name here>/`.
 
 To run this modification just define original suffix and new suffix and press `Transform and Preview` button. First 5 rows from CSV will be 
+
+### Step 4. Provide path to Google Cloud Storage Credentials
+
+This step is similar to **Step 1** but for credentials JSON file. Insert path and press `Validate credentials on random URL`. Application will try to use your creds to download image and visualize it. Or it will show the error message from Google Cloud API. 
+
+<img src="https://i.imgur.com/wUf7Afd.png"/>
 
 ## History of runs
 
