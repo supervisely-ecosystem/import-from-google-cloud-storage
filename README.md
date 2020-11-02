@@ -92,6 +92,7 @@ To better understand thes links, let's consider a simple example. If your links 
 
 Also sometimes developers forget to add bucket name to the beginning of the link. So you can ask app to change `gs://` suffix to `https://storage.cloud.google.com/<you bucket name here>/`.
 
+To run this modification just define original suffix and new suffix and press `Transform and Preview` button. First 5 rows from CSV will be 
 
 ## History of runs
 
