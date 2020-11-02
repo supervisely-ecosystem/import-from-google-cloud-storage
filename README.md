@@ -100,11 +100,18 @@ This step is similar to **Step 1** but for credentials JSON file. Insert path an
 
 <img src="https://i.imgur.com/wUf7Afd.png"/>
 
+### Step 5. Choose destination, image preprocessing settings and start upload
+
+<img src="https://i.imgur.com/LufV2mR.png"/>
+
+Define destination workspace/project/dataset. All images will be imported to a single dataset. If you want to create several datasets, you have to split you CSV-links file to several and run this app multiple times with every CSV file as input. 
+
+Application will create workspace or/and project or/and dataset if they don't exist. If dataset exists - it's ok, images will be added to it (`appent mode`).
+
 ## History of runs
 
 To see history of runs go to `Apps` page, click to applications sessions. In front of every session you can see several buttons buttons. Press `View` or `Open` button to open application session (in `Read Only` mode - if the application is stopped or finished).
 
 <img src="https://i.imgur.com/WwdUXe4.png"/>
-
-    # @TODO:  doc about bucket name in replace suffix
-    #@TODO: расписать кейс дозагрузки
+   
+#@TODO: расписать кейс дозагрузки
