@@ -4,6 +4,7 @@
         Be sure that first line is columns (it is a hard requirement). Read app's instructions for more details)"
               style="margin-bottom: 15px;">
         <el-input placeholder="Please input CSV path" v-model="state.csvPath"></el-input>
+
         <el-button type="text" @click="command('preview_csv')"><i class="zmdi zmdi-refresh"></i> Preview</el-button>
         <sly-table v-if="data.previewTable.data.length > 0 && data.csvDownloadError.length === 0 "
                    :content="data.previewTable">
@@ -13,16 +14,17 @@
         </div>
     </sly-card>
 
-    <sly-card title="Step 2. Read CSV structure" subtitle="define how to interpret columns" style="margin-bottom: 15px;">
-        <div>
-            URL column:
+    <sly-card title="Step 2. Read CSV structure" subtitle="define how to interpret columns"
+              style="margin-bottom: 15px;">
+        <div class="fflex">
+            <div style="width: 100px">URL column:</div>
             <el-select v-model="state.urlColumn" placeholder="Select">
                 <el-option v-for="item in data.previewTable.columns" :key="item" :label="item" :value="item">
                 </el-option>
             </el-select>
         </div>
-        <div class="mt15">
-            Other columns:
+        <div class="fflex mt15">
+            <div style="width: 100px">Other columns:</div>
             <el-select v-model="state.otherColumnsAction" placeholder="Select">
                 <el-option v-for="item in data.otherColumnsActions" :key="item" :label="item" :value="item">
                 </el-option>
@@ -30,13 +32,36 @@
         </div>
     </sly-card>
 
-    <sly-card title="Step 3. Google Cloud Platform credentials"
+
+    <sly-card title="Step 3. Authenticated URL"
+              subtitle="Transform local URI to the downloadable URL by replacing suffix" style="margin-bottom: 15px;">
+        <el-checkbox v-model="state.transformUri">Apply this transformation</el-checkbox>
+        <div class="fflex mt15">
+            <div style="width: 70px">Before:</div>
+            <el-input v-model="state.suffixBefore" :disabled="!state.transformUri"></el-input>
+        </div>
+        <div class="fflex mt15">
+            <div style="width: 70px">After:</div>
+            <el-input v-model="state.suffixAfter" :disabled="!state.transformUri"></el-input>
+        </div>
+        <el-button type="text" @click="command('transform_uri');">
+            <i class="zmdi zmdi-refresh"></i> Transform and preview
+        </el-button>
+        <sly-table v-if="data.transformedTable.data.length > 0 && data.csvDownloadError.length === 0 "
+                   :content="data.transformedTable">
+        </sly-table>
+    </sly-card>
+
+    <sly-card title="Step 4. Google Cloud Platform credentials"
               subtitle="put path to credentials file" style="margin-bottom: 15px;">
         <el-input placeholder="path" v-model="state.credsPath"></el-input>
         <el-button type="text" @click="command('validate_creds');">
-            <i class="zmdi zmdi-refresh"></i> Validate credentials
+            <i class="zmdi zmdi-refresh"></i> Validate credentials on random URL
         </el-button>
-        <img v-if="data.previewImageUrl && data.credError.length === 0" :src="data.previewImageUrl" style="max-height: 500px;">
+        <div>
+            <img v-if="data.previewImageUrl && data.credError.length === 0"
+                 :src="data.previewImageUrl" style="max-height: 500px;">
+        </div>
         <div style="color: red" v-if="data.credError.length > 0">{{data.credError}}</div>
     </sly-card>
 </div>
