@@ -45,7 +45,7 @@ Follow [these steps](https://cloud.google.com/docs/authentication/getting-starte
 
 ### Step 2. Upload CSV and JSON files to your team
 
-Upload two files from previous step to the Files in your team. Files can be placed to any location in your team.
+Upload two files from previous step to the Files in your team. There are no restrictions on file names. Files can be placed to any location in your team.
 
 ```
 max-***@***-***.iam.gserviceaccount.com does not have storage.objects.get access 
@@ -58,8 +58,5 @@ To see history of runs go to `Apps` page, click to applications sessions. In fro
 
 <img src="https://i.imgur.com/WwdUXe4.png"/>
 
-
     # @TODO:  doc about bucket name in replace suffix
-    #@TODO: readme error description: does not have storage.objects.get access to the Google Cloud Storage object.: ('Request failed with status code', 403, 'Expected one of', <HTTPStatus.OK: 200>, <HTTPStatus.PARTIAL_CONTENT: 206>)
-    #@TODO: describe tasks destination in readme (что потом можно вохвращаться к сессиям и смотреть)
     #@TODO: расписать кейс дозагрузки
