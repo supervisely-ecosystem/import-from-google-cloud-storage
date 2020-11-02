@@ -22,7 +22,7 @@
 
 ## Overview
 
-Application uploads images using links from provided CSV file. In addition, other columns can be attached to image as metainformation.
+Application uploads images using links from provided CSV file. In addition, other columns can be attached to images as metainformation.
 
 
 
