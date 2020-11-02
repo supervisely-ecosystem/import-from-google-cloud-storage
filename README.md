@@ -23,7 +23,7 @@
 
 ## Overview
 
-Application uploads images using links from provided CSV file. In addition, other columns can be attached to images as metainformation. 
+Application uploads images using links from provided CSV file. All images will be uploaded to single dataset. User chooses destination: workspace/project/dataset.  In addition, other columns can be attached to images as metainformation. 
 
 ## How To Run
 
