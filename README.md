@@ -37,7 +37,7 @@ Go to `Apps` page and press `Run` button in fron of the app.
 ## How To Use
 
 ### Step 0. Prepare CSV file with links
-**Important**: Column names have to be presented in the file. It is a hard requirement.  
+⚠️ **Important**: Column names have to be presented in the file. It is a hard requirement.  
 
 ### Step 1. Prepare JSON credentials file
 
