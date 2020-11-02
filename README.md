@@ -24,6 +24,7 @@
 
 Application uploads images using links from provided CSV file. In addition, other columns can be attached to images as metainformation.
 
+<img src="https://i.imgur.com/YnaA9zA.png"/>
 
 
 Import images from Google Cloud Storage
