@@ -113,5 +113,3 @@ Application will create workspace or/and project or/and dataset if they don't ex
 To see history of runs go to `Apps` page, click to applications sessions. In front of every session you can see several buttons buttons. Press `View` or `Open` button to open application session (in `Read Only` mode - if the application is stopped or finished).
 
 <img src="https://i.imgur.com/WwdUXe4.png"/>
-   
-#@TODO: расписать кейс дозагрузки
