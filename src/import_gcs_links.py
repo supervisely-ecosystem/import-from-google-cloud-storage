@@ -8,7 +8,7 @@ import random
 import google.api_core.exceptions as google_exceptions
 from google.cloud import storage
 
-my_app = sly.AppService()
+my_app = sly.AppService(ignore_task_id=True)
 links = None # list of dicts
 previewLinks = None # list of lists (raw csv)
 gs_key_local_path = os.path.join(my_app.data_dir, "key.json")
