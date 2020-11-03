@@ -33,7 +33,6 @@ def _download_csv_file(api, remote_path):
 def stop(api: sly.Api, task_id, context, state, app_logger):
     remote_path = "/temp/{}/".format(task_id)
     api.file.remove(TEAM_ID, remote_path)
-    api.task.set_field(task_id, "data.finished", True)
 
 
 @my_app.callback("preview_csv")
@@ -222,6 +221,8 @@ def upload(api: sly.Api, task_id, context, state, app_logger):
                   {"field": "data.totalCount", "payload": _total_count},
                   {"field": "data.uploadProgress", "payload": int(_uploaded_count * 100 / _total_count)}]
         api.app.set_fields(task_id, fields)
+
+    my_app.stop()
 
 
 
