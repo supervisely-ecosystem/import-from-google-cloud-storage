@@ -25,7 +25,7 @@
 
 Application uploads images using links from provided CSV file. All images will be uploaded to single dataset. User chooses destination: workspace/project/dataset.  In addition, other columns can be attached to images as metainformation. 
 
-<img src="https://i.imgur.com/YnaA9zA.png" height="600"/>
+<img src="https://i.imgur.com/YnaA9zA.png"/>
 
 ## How To Run
 
