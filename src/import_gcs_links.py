@@ -22,7 +22,7 @@ TEAM_ID = int(os.environ['context.teamId'])
 
 
 def _download_csv_file(api, remote_path):
-    local_path = os.path.join(my_app.data_dir, "/files/file.csv")
+    local_path = os.path.join(my_app.data_dir, "file.csv")
     sly.fs.ensure_base_path(local_path)
     api.file.download(TEAM_ID, remote_path, local_path)
     return local_path
@@ -189,11 +189,13 @@ def upload(api: sly.Api, task_id, context, state, app_logger):
                     #upload_name = api.image.get_free_name(dataset.id, file_name)
                     upload_name = sly._utils.generate_free_name(existing_names, file_name, with_ext=True)
 
+
             local_path = os.path.join(my_app.data_dir, file_name)
             try:
                 download_gcp_image(gcs_client, res_url, local_path)
                 batch_local_paths.append(local_path)
                 batch_names.append(upload_name)
+                existing_names.add(upload_name)
 
                 if state["otherColumnsAction"] == ACTION_ADD_TO_META:
                     link_meta = link.copy()
@@ -246,7 +248,7 @@ def main():
         "csvPath": "",
         "credsPath": "",
         "urlColumn": "",
-        "otherColumnsAction": ACTION_IGNORE,
+        "otherColumnsAction": ACTION_ADD_TO_META,
         "transformUri": True,
         "suffixBefore": "gs://",
         "suffixAfter": "https://storage.cloud.google.com/",
