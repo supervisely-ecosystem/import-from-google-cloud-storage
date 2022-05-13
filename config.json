@@ -2,7 +2,8 @@
   "name": "Import from Google Cloud Storage",
   "type": "app",
   "categories": [
-    "import"
+    "import",
+    "images"
   ],
   "description": "Upload images by reading links (Google Cloud Storage) from CSV file",
   "docker_image": "supervisely/base-py-sdk:6",
