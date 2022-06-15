@@ -1,14 +1,15 @@
 import os
 import csv
 import requests
-import supervisely_lib as sly
+import supervisely as sly
+from supervisely.app.v1.app_service import AppService
 import json
 import pathlib
 import random
 import google.api_core.exceptions as google_exceptions
 from google.cloud import storage
 
-my_app = sly.AppService(ignore_task_id=True)
+my_app: AppService = AppService(ignore_task_id=True)
 links = None # list of dicts
 previewLinks = None # list of lists (raw csv)
 gs_key_local_path = os.path.join(my_app.data_dir, "key.json")
@@ -121,7 +122,7 @@ def validate_creds(api: sly.Api, task_id, context, state, app_logger):
     file_info = api.file.upload(TEAM_ID, preview_image_local_path, remote_path)
     sly.fs.silent_remove(preview_image_local_path)
 
-    api.task.set_field(task_id, "data.previewImageUrl", file_info.full_storage_url)
+    api.task.set_field(task_id, "data.previewImageUrl", file_info.storage_path)
     pass
 
 @my_app.callback("upload")
