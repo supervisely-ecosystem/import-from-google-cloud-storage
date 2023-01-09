@@ -1,6 +1,6 @@
 <div align="center" markdown>
 
-<img src="https://user-images.githubusercontent.com/106374579/182860847-4634f7b4-5a86-4caf-b6ed-6708feff0829.png"/>
+<img src="https://user-images.githubusercontent.com/106374579/211295904-ff48b1d3-52f5-43d0-8a5d-968c7bd5a896.png"/>
 
 # Import images from Google Cloud Storage
 
