@@ -24,7 +24,7 @@
 
 Application uploads images using links from provided CSV file. All images will be uploaded to single dataset. User chooses destination: workspace/project/dataset.  In addition, other columns can be attached to images as metainformation. 
 
-<img src="https://i.imgur.com/YnaA9zA.png"/>
+<img src="media/ov.png"/>
 
 ## How To Run
 
@@ -34,7 +34,7 @@ Application uploads images using links from provided CSV file. All images will b
 
 Go to `Apps` page and press `Run` button in fron of the app.
 
-<img src="https://i.imgur.com/2HciaQv.png"/>
+<img src="media/htr2.png"/>
 
 ## Preparations
 
@@ -54,7 +54,7 @@ to the Google Cloud Storage object.: ('Request failed with status code', 403, ..
 
 Upload two files from previous step to the Files in your team. There are no restrictions on file names. Files can be placed to any location in your team.
 
-<img src="https://i.imgur.com/XNCEIJj.png"/>
+<img src="media/p3.png"/>
 
 ## How To Use
 
@@ -64,19 +64,19 @@ Application has 5 cards. User has to go through all these cards (steps). Let's t
 
 In `Files` right-mouse click context menu will help you to get the full path to file and copy it to buffer. 
 
-<img src="https://i.imgur.com/VuBOyH7.png" height="400"/>
+<img src="media/htu1.png" height="400"/>
 
 Paster it here
 
-<img src="https://i.imgur.com/b5CUCZH.png"/>
+<img src="media/htu1a.png"/>
 
 And press `Preview` button. First five rows from your CSV file will pe presented. 
 
-<img src="https://i.imgur.com/UIxbL8s.png"/>
+<img src="media/htu1b.png"/>
 
 ### Step 2. Set Up CSV columns
 
-<img src="https://i.imgur.com/MDciSf1.png"/>
+<img src="media/htu2.png"/>
 
 Define, what column stores URL and the action that is applied to other columns:
 - `ignore` - other columns are ignored
@@ -87,7 +87,7 @@ Define, what column stores URL and the action that is applied to other columns:
 
 Every object in Google Cloud Storage has two types of links to objects (files): URI and URL.  
 
-<img src="https://i.imgur.com/GmWXfki.png"/>
+<img src="media/htu3.png"/>
 
 To better understand these links, let's consider simple example. If your links starts with `gs://` (for example `gs://a/b/ccc-ddd.jpg`) they can not be directly use download images. So the `gs://` prefix will be replaced to `https://storage.cloud.google.com/` automatically by default. 
 
@@ -99,11 +99,11 @@ To run this modification just define original prefix and new prefix and press `T
 
 This step is similar to **Step 1** but for credentials JSON file. Insert path and press `Validate credentials on random URL`. Application will try to use your creds to download image and visualize it. Or it will show the error message from Google Cloud API. 
 
-<img src="https://i.imgur.com/wUf7Afd.png"/>
+<img src="media/htu4.png"/>
 
 ### Step 5. Choose destination, image preprocessing settings and start upload
 
-<img src="https://i.imgur.com/LufV2mR.png"/>
+<img src="media/htu5.png"/>
 
 Define destination workspace/project/dataset. All images will be imported to a single dataset. If you want to create several datasets, you have to split you CSV-links file to several and run this app multiple times with every CSV file as input. 
 
@@ -113,4 +113,4 @@ Application will create workspace or/and project or/and dataset if they don't ex
 
 To see history of runs go to `Apps` page, click to applications sessions. In front of every session you can see several buttons buttons. Press `View` or `Open` button to open application session (in `Read Only` mode - if the application is stopped or finished).
 
-<img src="https://i.imgur.com/WwdUXe4.png"/>
+<img src="media/hist.png"/>
