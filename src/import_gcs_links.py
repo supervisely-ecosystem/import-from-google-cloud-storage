@@ -8,6 +8,7 @@ import pathlib
 import random
 import google.api_core.exceptions as google_exceptions
 from google.cloud import storage
+from src.workflow import Workflow
 
 my_app: AppService = AppService(ignore_task_id=True)
 links = None # list of dicts
@@ -215,6 +216,10 @@ def upload(api: sly.Api, task_id, context, state, app_logger):
 
 
         api.image.upload_paths(dataset.id, batch_names, batch_local_paths, metas=batch_metas)
+        # -------------------------------------- Add Workflow Output ------------------------------------- #
+        workflow = Workflow(api)
+        workflow.add_output(project.id)
+        # ----------------------------------------------- - ---------------------------------------------- #
         for local_path in batch_local_paths:
             sly.fs.silent_remove(local_path)
 
