@@ -1,2 +1,2 @@
-supervisely==6.73.141
+supervisely==6.73.160
 google-cloud-storage==1.35.0
