@@ -6,8 +6,8 @@
     "images"
   ],
   "description": "Upload images by reading links (Google Cloud Storage) from CSV file",
-  "docker_image": "supervisely/import-export:6.73.564",
-  "instance_version": "6.15.60",
+  "docker_image": "supervisely/import-export:6.74.34",
+  "instance_version": "6.17.22",
   "main_script": "src/import_gcs_links.py",
   "modal_template": "src/modal.html",
   "gui_template": "src/gui.html",
